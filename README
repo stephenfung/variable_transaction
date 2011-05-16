@@ -21,4 +21,7 @@ Known issues:
 - Objects that are not serializable will break this, because we use Marshal.dump and Marshal.load for deep copy
 
 Archon Systems is a software company in Toronto, Canada.  We've made the most popular inventory software system,
-inFlow Inventory, and we're working on a sweet new Rails system for small businesses.  www.archonsystems.com
+inFlow Inventory, and we're working on a sweet new Rails system for small businesses.  Get in touch with us if you're
+into Rails and in Toronto!  www.archonsystems.com
+
+#refactotum Rails Conf 2011.  Thanks guys!
