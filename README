@@ -4,6 +4,12 @@ This is motivated by a problem in Rails where if there's an exception and a data
 model objects are not reverted, leaving them in an inconsistent state.  e.g. you can have models with new_record?
 and id set incorrectly.
 
+References that run into this problem:
+https://rails.lighthouseapp.com/projects/8994/tickets/1948-transaction-block-sets-model-id-to-non-existent-row
+http://stackoverflow.com/questions/1848117/rails-new-record-not-reset-to-true-if-transaction-is-rolled-back
+http://stackoverflow.com/questions/2305126/rails-object-in-rescue-after-transaction-failure-is-saved
+https://rails.lighthouseapp.com/projects/8994/tickets/256-model-objects-are-falsely-marked-as-not-new-after-transaction-rollback
+
 This fixes it by reverting the model objects.  You invoke this behaviour by using a variable_transaction block,
 just like the ActiveRecord::Base.transaction block.  The implementation takes a snapshot (deep-copy) of the values
 of all the local variables in scope, and if there's an exception, reverts back to these.
@@ -11,11 +17,8 @@ of all the local variables in scope, and if there's an exception, reverts back t
 The fix actually has no dependency on Rails, and works for any sorts of instance variables.  (But this project does
 include Rails so that we can test against it.)
 
-References that run into this problem:
-https://rails.lighthouseapp.com/projects/8994/tickets/1948-transaction-block-sets-model-id-to-non-existent-row
-http://stackoverflow.com/questions/1848117/rails-new-record-not-reset-to-true-if-transaction-is-rolled-back
-http://stackoverflow.com/questions/2305126/rails-object-in-rescue-after-transaction-failure-is-saved
-https://rails.lighthouseapp.com/projects/8994/tickets/256-model-objects-are-falsely-marked-as-not-new-after-transaction-rollback
-
 Known issues:
-- Objects that are not serializable will break this
+- Objects that are not serializable will break this, because we use Marshal.dump and Marshal.load for deep copy
+
+Archon Systems is a software company in Toronto, Canada.  We've made the most popular inventory software system,
+inFlow Inventory, and we're working on a sweet new Rails system for small businesses.  www.archonsystems.com
