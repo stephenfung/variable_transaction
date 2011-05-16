@@ -16,7 +16,7 @@ development:
   <<: *defaults
   database: variable_transaction_development
   username: root
-  password: happycustomer
+  password: your_password
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -26,7 +26,7 @@ test:
   <<: *defaults
   database: variable_transaction_test
   username: root
-  password: happycustomer
+  password: your_password
   host: localhost
 
 production:
